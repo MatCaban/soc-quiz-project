@@ -20,9 +20,6 @@ public class QuestionManager {
         try (Reader reader = new FileReader("src/json/" + topics + ".json")) {
             Type questionListType = new TypeToken<List<Question>>(){}.getType();
             this.questions = gson.fromJson(reader,questionListType);
-
-
-            reader.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

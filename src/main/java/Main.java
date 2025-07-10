@@ -1,15 +1,15 @@
-import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        QuestionManager qm = new QuestionManager();
-        qm.setQuestions("java");
+        Scanner scanner = new Scanner(System.in);
+        QuizManager quizManager = new QuizManager();
 
-        List<Question> questions = qm.qetQuestions();
+        quizManager.printWelcome();
 
-        for (Question q: questions) {
-            q.printQuestion();
-        }
+
+
+
 
     }
 }
