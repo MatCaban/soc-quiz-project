@@ -1,8 +1,5 @@
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class QuizManager {
     private int playerScore;
@@ -46,14 +43,22 @@ public class QuizManager {
         for (int i = 0; i < 4; i++) {
             this.questionManager.printQuestion(i);
             String answer = Answer.scanQuizAnswer(scanner);
-            System.out.println(answer);
+            Boolean[] userAnswers = listOfUserAnswers(answer);
+            Boolean[] actualAnswers = this.questionManager.answerValues(i);
+            System.out.println("User answer " + Arrays.toString(userAnswers));
+            System.out.println("Actual answer " + Arrays.toString(actualAnswers));
+            System.out.println(Arrays.equals(userAnswers,actualAnswers));
         }
     }
 
-    public void listOfUserAnswers(String answer) {
+    public Boolean[] listOfUserAnswers(String answer) {
         String[] splitted = answer.split("");
-        List<Boolean> userAnswers = new ArrayList<>();
+        Boolean[] userAnswers = new Boolean[4];
+        Arrays.fill(userAnswers,false);
 
-        for (int i = 0; i < )
+        for (int i = 0; i < splitted.length; i++) {
+            userAnswers[Integer.parseInt(splitted[i]) -1 ] = true;
+        }
+        return userAnswers;
     }
 }

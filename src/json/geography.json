@@ -1,40 +1,42 @@
 [
-{
-  "question": "Which is the only continent with land in all four hemispheres?",
-  "answers": {
+  {
+    "question": "Which is the only continent with land in all four hemispheres?",
+    "answers": {
       "Africa": true,
       "Europe": false,
       "Asia": false,
       "America": false
     },
-  "multipleChoice": false
-},
-{
-  "question": "Where would you be if you were standing on the Spanish Steps?",
-  "answers": {
-      "Rome": true,
+    "multipleChoice": false
+  },
+  {
+    "question": "Where would you be if you were standing on the Spanish Steps?",
+    "answers": {
       "Madrid": false,
+      "Rome": true,
       "Barcelona": false,
       "Neapol": false
     },
-  "multipleChoice": false
-},
-{
-  "question": "Which country has the most islands?",
-  "answers": {
-      "Sweden": true,
-      "Finland": false
+    "multipleChoice": false
+  },
+  {
+    "question": "Which country has the most islands?",
+    "answers": {
+      "Finland": false,
+      "Philippines": false,
+      "Indonesia": false,
+      "Sweden": true
     },
-  "multipleChoice": false
-},
-{
-  "question": "Which of the following cities are located on a major river?",
-  "answers": {
+    "multipleChoice": false
+  },
+  {
+    "question": "Which of the following cities are located on a major river?",
+    "answers": {
       "London": true,
       "Paris": true,
       "Tokyo": false,
       "Cairo": true
     },
-  "multipleChoice": true
-}
+    "multipleChoice": true
+  }
 ]

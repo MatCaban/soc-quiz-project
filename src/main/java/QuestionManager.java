@@ -30,8 +30,8 @@ public class QuestionManager {
         }
     }
 
-    public List<Question> qetQuestions() {
-        return this.questions;
+    public void setListOfRightAnswer() {
+
     }
 
     public void printQuestion(int questionNumber) {
@@ -52,4 +52,13 @@ public class QuestionManager {
         System.out.print(question.isMultipleChoice() ? "(Multiple choice question!)\n" : " (Only one right answer!)\n");
     }
 
+    public Boolean[] answerValues(int questionNumber) {
+        Boolean[] answers = new Boolean[4];
+        int index = 0;
+        for (Boolean b: this.questions.get(questionNumber).getAnswers().values()){
+            answers[index] = b;
+            index++;
+        }
+        return answers;
+    }
 }
