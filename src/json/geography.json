@@ -1,3 +1,4 @@
+[
 {
   "question": "Which is the only continent with land in all four hemispheres?",
   "answers": {
@@ -5,5 +6,27 @@
       "Europe": false,
       "Asia": false,
       "America": false
-    }
+    },
+  "multipleChoice": false
+},
+{
+  "question": "Where would you be if you were standing on the Spanish Steps?",
+  "answers":
+    {
+      "Rome": true,
+      "Madrid": false,
+      "Barcelona": false,
+      "Neapol": false
+    },
+  "multipleChoice": false
+},
+{
+  "question": "Which country has the most islands?",
+  "answers":
+    {
+      "Sweden": true,
+      "Finland": false
+    },
+  "multipleChoice": false
 }
+  ]

@@ -4,6 +4,7 @@ import java.util.Map;
 public class Question {
     private String question;
     private Map<String, Boolean> answers;
+    private boolean multipleChoice;
 
     public Question(){
         this.answers = new HashMap<>();
