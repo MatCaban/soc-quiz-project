@@ -10,17 +10,14 @@ public class Question {
         this.answers = new HashMap<>();
     }
 
-    public void addAnswer(String answer, boolean validity) {
-        this.answers.put(answer, validity);
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
+    public boolean getMultipleChoice(){
+        return this.multipleChoice;
     }
 
     public void printQuestion(){
         int index = 1;
-        System.out.println(this.question);
+        System.out.print(this.question + " ");
+        System.out.print(multipleChoice ? "(Multiple valid answers)\n": "(Only one valid answer)\n");
         for (String key : this.answers.keySet()) {
             System.out.println("\t" + index + ". " + key);
             index++;
