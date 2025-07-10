@@ -1,0 +1,40 @@
+[
+{
+  "question": " Which of the following substances are typically considered good electrical conductors?",
+  "answers": {
+      "Copper": true,
+      "Glass": false,
+      "Gold": true,
+      "Silver": true
+    },
+  "multipleChoice": true
+},
+{
+  "question": "Which is the only body part that is fully grown from birth?",
+  "answers": {
+      "eyes": true,
+      "ears": false,
+      "nose": false,
+      "mouth": false
+    },
+  "multipleChoice": false
+},
+{
+  "question": "What is the process by which plants convert sunlight to energy?",
+  "answers": {
+      "Photosynthesis": true,
+      "Photogenesis": false
+    },
+  "multipleChoice": false
+},
+{
+  "question": "What is the chemical element with the symbol Fe?",
+  "answers": {
+      "Iron": true,
+      "Felenium": false,
+      "Fermium": false,
+      "Chromium": false
+    },
+  "multipleChoice": false
+}
+]

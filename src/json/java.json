@@ -1,0 +1,40 @@
+[
+{
+  "question": "Which of the following are valid access modifiers in Java?",
+  "answers": {
+      "public": true,
+      "protected": true,
+      "internal": false,
+      "default": true
+    },
+  "multipleChoice": true
+},
+{
+  "question": "Which keyword is used to prevent a class from being subclassed in Java?",
+  "answers": {
+      "abstract": false,
+      "static": false,
+      "final": true,
+      "private": false
+    },
+  "multipleChoice": false
+},
+{
+  "question": "What is the default value of an integer array in Java?",
+  "answers": {
+      "0": true,
+      "2147483647": false,
+      "null": false,
+      "-1": false
+    },
+  "multipleChoice": false
+},
+{
+  "question": "The value of a string variable can be surrounded by single quotes?",
+  "answers": {
+      "true": false,
+      "false": true
+    },
+  "multipleChoice": false
+}
+]
