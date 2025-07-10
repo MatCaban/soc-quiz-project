@@ -21,7 +21,7 @@ public class Answer {
         return input;
     }
 
-    public static String scanSectionAnswer(Scanner scanner) {
+    public static String scanTopicAnswer(Scanner scanner) {
         String input;
         while (true) {
             input = scanner.nextLine().toLowerCase();

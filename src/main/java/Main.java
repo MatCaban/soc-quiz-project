@@ -7,7 +7,15 @@ public class Main {
 
         quizManager.printWelcome();
 
+        String topic = Answer.scanTopicAnswer(scanner);
 
+        switch (topic) {
+            case "a" -> quizManager.setQuestionTopics("geography");
+            case "b" -> quizManager.setQuestionTopics("java");
+            case "c" -> quizManager.setQuestionTopics("science");
+        }
+
+        quizManager.playQuiz();
 
 
 

@@ -1,8 +1,22 @@
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class QuizManager {
     private int playerScore;
-    private List<Question> questions;
+    private QuestionManager questionManager;
+    private Scanner scanner;
+   // private List<Question> questions;
+
+
+    public QuizManager(){
+        this.playerScore = 0;
+        this.questionManager = new QuestionManager();
+        this.scanner = new Scanner(System.in);
+       // this.questions = new ArrayList<>();
+    }
 
     //TODO trieda bude manazovat a kontrolovat spravnost odpovedi
     //TODO bude dalsia trieda ktora bude zbierat a validovat odpovede
@@ -22,5 +36,24 @@ public class QuizManager {
                 *                                c) science                             *
                 *                     Write your answer and we can begin!               *
                 =========================================================================""");
+    }
+
+    public void setQuestionTopics(String topic){
+        this.questionManager.setQuestionsList(topic);
+    }
+
+    public void playQuiz() {
+        for (int i = 0; i < 4; i++) {
+            this.questionManager.printQuestion(i);
+            String answer = Answer.scanQuizAnswer(scanner);
+            System.out.println(answer);
+        }
+    }
+
+    public void listOfUserAnswers(String answer) {
+        String[] splitted = answer.split("");
+        List<Boolean> userAnswers = new ArrayList<>();
+
+        for (int i = 0; i < )
     }
 }

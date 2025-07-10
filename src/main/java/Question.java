@@ -1,26 +1,34 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Question {
     private String question;
-    private Map<String, Boolean> answers;
+    private final Map<String, Boolean> answers;
     private boolean multipleChoice;
+    private final List<Boolean> rightAnswers;
 
     public Question(){
         this.answers = new HashMap<>();
+        this.rightAnswers = new ArrayList<>();
     }
 
-    public boolean getMultipleChoice(){
+    public List<Boolean> getRightAnswers(){
+        this.rightAnswers.addAll(this.answers.values());
+        return this.rightAnswers;
+    }
+
+
+    public Map<String, Boolean> getAnswers() {
+        return this.answers;
+    }
+
+    public String getQuestion() {
+        return this.question;
+    }
+
+    public boolean isMultipleChoice(){
         return this.multipleChoice;
-    }
-
-    public void printQuestion(){
-        int index = 1;
-        System.out.print(this.question + " ");
-        System.out.print(multipleChoice ? "(Multiple valid answers)\n": "(Only one valid answer)\n");
-        for (String key : this.answers.keySet()) {
-            System.out.println("\t" + index + ". " + key);
-            index++;
-        }
     }
 }
