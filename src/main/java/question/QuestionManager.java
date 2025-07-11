@@ -57,7 +57,7 @@ public class QuestionManager {
 
     private void printPrettyQuestion(Question question) {
         System.out.print(question.getQuestion());
-        System.out.print(question.isMultipleChoice() ? "(Multiple choice question!)\n" : " (Only one correct answer!)\n");
+        System.out.print(question.isMultipleChoice() ? " (Multiple choice question!)\n" : " (Only one correct answer!)\n");
     }
 
     public Boolean[] answerValues(int questionNumber) {

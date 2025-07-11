@@ -23,8 +23,9 @@ public class QuizManager {
     public QuizManager() {
         this.playerScore = 0;
         this.questionManager = new QuestionManager();
-        this.scanner = new Scanner(System.in);
         this.playerManager = new PlayerManager();
+        this.scanner = new Scanner(System.in);
+
     }
 
     public void welcomePlayer() {
@@ -38,8 +39,8 @@ public class QuizManager {
 
     public void setPlayer() {
         System.out.print("Enter name: ");
-        String playerName = Answer.scanPlayerName(scanner);
-        playerManager.setPlayer(playerName);
+        String playerName = Answer.scanPlayerName(this.scanner);
+        this.playerManager.setPlayer(playerName);
     }
 
 
@@ -65,7 +66,7 @@ public class QuizManager {
     }
 
     public void playQuiz() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < this.questionManager.getQuestions().size(); i++) {
             this.questionManager.printQuestion(i);
             String answer = Answer.scanQuizAnswer(scanner);
             Boolean[] userAnswers = listOfUserAnswers(answer);
@@ -100,8 +101,8 @@ public class QuizManager {
         Boolean[] userAnswers = new Boolean[4];
         Arrays.fill(userAnswers, false);
 
-        for (int i = 0; i < splitted.length; i++) {
-            userAnswers[Integer.parseInt(splitted[i]) - 1] = true;
+        for (String s : splitted) {
+            userAnswers[Integer.parseInt(s) - 1] = true;
         }
         return userAnswers;
     }

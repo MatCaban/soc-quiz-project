@@ -26,8 +26,8 @@ public class Main {
             quizManager.quizResult();
 
             System.out.println("Would you like to restart game? y/n");
-            String shouldContinue = Answer.scanRestartGameAnswer(scanner);
-            if (!quizManager.shouldPlayAgain(shouldContinue)) {
+            String answer = Answer.scanRestartGameAnswer(scanner);
+            if (!quizManager.shouldPlayAgain(answer)) {
                 break;
             }
         }
