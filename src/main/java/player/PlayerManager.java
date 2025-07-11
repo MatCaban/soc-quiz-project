@@ -5,9 +5,14 @@ import com.google.gson.GsonBuilder;
 
 import java.io.*;
 
+/**
+ * The PlayerManager class provides functionality to manage a Player object,
+ * including setting the player's information, updating points, displaying
+ * points, saving the player's data to a JSON file or retrieving data
+ * from JSON file.
+ */
 public class PlayerManager {
     private Player player;
-    private Gson gson;
 
     public PlayerManager() {
         this.player = new Player();
@@ -22,14 +27,12 @@ public class PlayerManager {
 
         } catch (IOException e) {
             this.player.setName(playerName);
-
         }
     }
 
     public void setPlayerPoints(int pointsEarned) {
         this.player.setPointsEarned(this.player.getPointsEarned() + pointsEarned);
         this.player.setAllPossiblePoints(this.player.getAllPossiblePoints() + 4);
-
     }
 
     public void printPoints() {
@@ -40,11 +43,9 @@ public class PlayerManager {
     public void savePlayer() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-
         String fileName = this.player.getName() + ".json";
         try (Writer writer = new FileWriter("src/json/players/" + fileName)) {
             writer.write(gson.toJson(this.player));
-            System.out.println("Json bol uspesne zapisany");
         } catch (IOException e) {
             System.out.println(e.getStackTrace());
         }

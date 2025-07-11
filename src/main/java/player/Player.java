@@ -1,9 +1,15 @@
 package player;
 
+
 public class Player {
     private String name;
     private int pointsEarned;
     private int allPossiblePoints;
+
+    public Player() {
+        this.pointsEarned = 0;
+        this.allPossiblePoints = 0;
+    }
 
 
     public String getName() {

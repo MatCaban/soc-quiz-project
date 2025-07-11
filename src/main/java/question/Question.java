@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents a question that contains its text, a set of possible answers,
+ * and a flag indicating whether it is a multiple-choice question.
+ * This class also tracks the correct answers.
+ */
 public class Question {
     private String question;
     private final Map<String, Boolean> answers;

@@ -11,6 +11,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Manages a list of questions for a quiz, including loading questions
+ * from a JSON file, printing questions and their answers, and retrieving
+ * answer values for a specific question.
+ */
 public class QuestionManager {
     private List<Question> questions;
 

@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Utility class containing static methods for scanning and validating user input in a quiz game.
+ * The methods handle different types of inputs such as quiz answers, topic selection, restart game decision,
+ * and player name. The class ensures user inputs meet specific requirements and formats.
+ */
 public class Answer {
 
 

@@ -8,11 +8,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+
+/**
+ * The QuizManager class is responsible for managing the overall flow of the quiz,
+ * including player interactions, question setup, scorekeeping, and result display.
+ */
 public class QuizManager {
     private int playerScore;
-    private QuestionManager questionManager;
-    private Scanner scanner;
-    private PlayerManager playerManager;
+    private final QuestionManager questionManager;
+    private final Scanner scanner;
+    private final PlayerManager playerManager;
 
 
     public QuizManager() {
