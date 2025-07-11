@@ -27,7 +27,7 @@ public class Answer {
     public static String scanTopicAnswer(Scanner scanner) {
         String input;
         while (true) {
-
+            System.out.print("-> ");
             input = scanner.nextLine().toLowerCase();
 
             if (input.equals("a") || input.equals("b") || input.equals("c")) {
@@ -37,6 +37,19 @@ public class Answer {
             System.out.println("Invalid input, choose only from - a, b, c");
         }
 
+        return input;
+    }
+
+    public static String scanRestartGameAnswer(Scanner scanner) {
+        String input;
+        while (true) {
+            System.out.print("-> ");
+            input = scanner.nextLine().toLowerCase();
+            if (input.equals("y") || input.equals("n")) {
+                break;
+            }
+            System.out.println("Invalid input, choose only y/n");
+        }
         return input;
     }
 

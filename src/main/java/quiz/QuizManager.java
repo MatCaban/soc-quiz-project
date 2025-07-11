@@ -76,4 +76,12 @@ public class QuizManager {
         }
         return userAnswers;
     }
+
+    public boolean shouldPlayAgain(String answer){
+        if (answer.equals("y")) {
+            this.playerScore = 0;
+            return true;
+        }
+        return false;
+    }
 }
