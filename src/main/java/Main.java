@@ -1,3 +1,6 @@
+import answer.Answer;
+import quiz.QuizManager;
+
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +19,7 @@ public class Main {
         }
 
         quizManager.playQuiz();
-
+        quizManager.quizResult();
 
 
     }

@@ -1,3 +1,5 @@
+package answer;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ public class Answer {
     public static String scanQuizAnswer(Scanner scanner) {
         String input;
         while (true) {
+            System.out.print("-> ");
             input = scanner.nextLine();
 
             if (isInputValid(input) && isInputInRange(input)) {
@@ -24,6 +27,7 @@ public class Answer {
     public static String scanTopicAnswer(Scanner scanner) {
         String input;
         while (true) {
+
             input = scanner.nextLine().toLowerCase();
 
             if (input.equals("a") || input.equals("b") || input.equals("c")) {

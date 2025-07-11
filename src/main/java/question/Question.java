@@ -1,3 +1,5 @@
+package question;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,8 @@ public class Question {
     public Question(){
         this.answers = new HashMap<>();
         this.rightAnswers = new ArrayList<>();
+        this.question = "";
+        this.multipleChoice = false;
     }
 
     public List<Boolean> getRightAnswers(){

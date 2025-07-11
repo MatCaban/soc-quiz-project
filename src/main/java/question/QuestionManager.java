@@ -1,3 +1,5 @@
+package question;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -11,7 +13,7 @@ import java.util.Map;
 
 public class QuestionManager {
     private List<Question> questions;
-    private List<Boolean> listOfRightAnswer;
+
 
     public QuestionManager() {
         this.questions = new ArrayList<>();
@@ -30,9 +32,10 @@ public class QuestionManager {
         }
     }
 
-    public void setListOfRightAnswer() {
-
+    public List<Question> getQuestions() {
+        return this.questions;
     }
+
 
     public void printQuestion(int questionNumber) {
         printPrettyQuestion(this.questions.get(questionNumber));
@@ -53,12 +56,6 @@ public class QuestionManager {
     }
 
     public Boolean[] answerValues(int questionNumber) {
-        Boolean[] answers = new Boolean[4];
-        int index = 0;
-        for (Boolean b: this.questions.get(questionNumber).getAnswers().values()){
-            answers[index] = b;
-            index++;
-        }
-        return answers;
+        return this.questions.get(questionNumber).getRightAnswers().toArray(new Boolean[0]);
     }
 }

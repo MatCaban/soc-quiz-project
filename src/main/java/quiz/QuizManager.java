@@ -1,11 +1,15 @@
-import java.sql.Array;
+package quiz;
+
+import answer.Answer;
+import question.QuestionManager;
+
 import java.util.*;
 
 public class QuizManager {
     private int playerScore;
     private QuestionManager questionManager;
     private Scanner scanner;
-   // private List<Question> questions;
+   // private List<question.Question> questions;
 
 
     public QuizManager(){
@@ -15,8 +19,6 @@ public class QuizManager {
        // this.questions = new ArrayList<>();
     }
 
-    //TODO trieda bude manazovat a kontrolovat spravnost odpovedi
-    //TODO bude dalsia trieda ktora bude zbierat a validovat odpovede
 
     public void printWelcome(){
         System.out.println("""
@@ -45,9 +47,22 @@ public class QuizManager {
             String answer = Answer.scanQuizAnswer(scanner);
             Boolean[] userAnswers = listOfUserAnswers(answer);
             Boolean[] actualAnswers = this.questionManager.answerValues(i);
-            System.out.println("User answer " + Arrays.toString(userAnswers));
-            System.out.println("Actual answer " + Arrays.toString(actualAnswers));
-            System.out.println(Arrays.equals(userAnswers,actualAnswers));
+
+            if (Arrays.equals(userAnswers,actualAnswers)){
+                this.playerScore++;
+            }
+        }
+    }
+
+    public void quizResult(){
+        System.out.println("Quiz is finished!");
+        System.out.println("You've got " + this.playerScore + " out of " + this.questionManager.getQuestions().size());
+        switch (this.playerScore) {
+            case 4 -> System.out.println("Excellent, you are a genius or something");
+            case 3 -> System.out.println("Very good, you are obviously smart");
+            case 2 -> System.out.println("Not great, not terrible");
+            case 1 -> System.out.println("I still see great potential for improvement");
+            case 0 -> System.out.println("C'mon , did you even try?");
         }
     }
 
