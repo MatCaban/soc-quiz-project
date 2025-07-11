@@ -22,7 +22,7 @@ public class QuestionManager {
     public void setQuestionsList(String topic) {
         Gson gson = new Gson();
 
-        try (Reader reader = new FileReader("src/json/" + topic + ".json")) {
+        try (Reader reader = new FileReader("src/json/topics/" + topic + ".json")) {
             Type questionListType = new TypeToken<List<Question>>() {
             }.getType();
             this.questions = gson.fromJson(reader, questionListType);

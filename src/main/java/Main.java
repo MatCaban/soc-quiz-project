@@ -8,8 +8,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         QuizManager quizManager = new QuizManager();
 
+        quizManager.welcomePlayer();
+        quizManager.setPlayer();
+
         while (true) {
-            quizManager.printWelcome();
+            quizManager.printIntro();
 
             String topic = Answer.scanTopicAnswer(scanner);
 

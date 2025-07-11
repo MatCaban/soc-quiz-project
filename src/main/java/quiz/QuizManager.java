@@ -1,38 +1,58 @@
 package quiz;
 
 import answer.Answer;
+import player.PlayerManager;
 import question.QuestionManager;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class QuizManager {
     private int playerScore;
     private QuestionManager questionManager;
     private Scanner scanner;
+    private PlayerManager playerManager;
 
 
     public QuizManager() {
         this.playerScore = 0;
         this.questionManager = new QuestionManager();
         this.scanner = new Scanner(System.in);
+        this.playerManager = new PlayerManager();
+    }
+
+    public void welcomePlayer() {
+        System.out.println("\t\t* Hello! Welcome to this quiz! *\n");
+        try {
+            printSavedPlayers();
+        } catch (IOException e) {
+            System.out.println("Sorry, something went wrong");
+        }
+    }
+
+    public void setPlayer() {
+        System.out.print("Enter name: ");
+        String playerName = Answer.scanPlayerName(scanner);
+        playerManager.setPlayer(playerName);
     }
 
 
-    public void printWelcome() {
+
+    public void printIntro() {
         System.out.println("""
-                =========================================================================
-                *                        Hello! Welcome to this quiz!                   *
-                *                    You can choose from three areas of interest.       *
-                *                Each area has 4 questions, and the questions may       *
-                *                    (but don't have to!) have multiple answers.        *
-                *                           So be careful and focus!                    *
-                *                                                                       *
-                * Now it's time to choose the area you want questions from, will it be: *
-                *                                a) geography                           *
-                *                                b) java                                *
-                *                                c) science                             *
-                *                     Write your answer and we can begin!               *
-                =========================================================================""");
+                ========================================================================
+                *                   You can choose from three areas of interest.       *
+                *               Each area has 4 questions, and the questions may       *
+                *                   (but don't have to!) have multiple answers.        *
+                *                          So be careful and focus!                    *
+                *                                                                      *
+                * Now it's time to choose the area you want questions from, will it be *
+                *                                a) geography                          *
+                *                                b) java                               *
+                *                                c) science                            *
+                *                     Write your answer and we can begin!              *
+                ========================================================================""");
     }
 
     public void setQuestionTopics(String topic) {
@@ -64,6 +84,10 @@ public class QuizManager {
             case 0 -> System.out.println("C'mon , did you even try?");
         }
         System.out.println("*".repeat(30));
+
+        this.playerManager.setPlayerPoints(this.playerScore);
+        this.playerManager.printPoints();
+        this.playerManager.savePlayer();
     }
 
     public Boolean[] listOfUserAnswers(String answer) {
@@ -84,4 +108,31 @@ public class QuizManager {
         }
         return false;
     }
+
+    private void printSavedPlayers() throws IOException {
+        File folder = new File("src/json/players");
+
+        if (!folder.isDirectory()) {
+            throw new IOException("Folder not found!");
+        }
+
+        File[] files = folder.listFiles();
+
+        if (files.length == 0) {
+            System.out.println("\t\tThere are no saved players yet!");
+            System.out.println("\t\tCongratulation you are first to play!");
+        } else {
+            System.out.println("* There are already some saved players! *");
+            for (File file : files) {
+                String fileName = file.getName();
+                int dotIndex = fileName.indexOf(".");
+                fileName = fileName.substring(0, dotIndex);
+                System.out.println("\t\t* " + fileName);
+            }
+            System.out.println("Enter existing name or choose your own");
+        }
+    }
+
+
+
 }

@@ -14,7 +14,7 @@ public class Answer {
         String input;
         while (true) {
             System.out.print("-> ");
-            input = scanner.nextLine();
+            input = scanner.nextLine().toLowerCase();
 
             if (isInputValid(input) && isInputInRange(input)) {
                 break;
@@ -50,6 +50,20 @@ public class Answer {
             }
             System.out.println("Invalid input, choose only y/n");
         }
+        return input;
+    }
+
+    public static String scanPlayerName(Scanner scanner){
+        String input;
+        while (true) {
+            input = scanner.nextLine();
+            if (!input.isBlank()) {
+                break;
+            }
+            System.out.println("You should choose some epic name");
+            System.out.print("Enter name: ");
+        }
+
         return input;
     }
 
