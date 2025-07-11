@@ -13,8 +13,8 @@
     "question": "Which keyword is used to prevent a class from being subclassed in Java?",
     "answers": {
       "abstract": false,
-      "static": false,
       "final": true,
+      "static": false,
       "private": false
     },
     "multipleChoice": false
@@ -32,9 +32,9 @@
   {
     "question": "Which of the following has highest operator precedence?",
     "answers": {
+      "++": true,
       "&&": false,
       "||": false,
-      "++": true,
       "*": false
     },
     "multipleChoice": false
