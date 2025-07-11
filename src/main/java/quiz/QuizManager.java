@@ -9,18 +9,16 @@ public class QuizManager {
     private int playerScore;
     private QuestionManager questionManager;
     private Scanner scanner;
-   // private List<question.Question> questions;
 
 
-    public QuizManager(){
+    public QuizManager() {
         this.playerScore = 0;
         this.questionManager = new QuestionManager();
         this.scanner = new Scanner(System.in);
-       // this.questions = new ArrayList<>();
     }
 
 
-    public void printWelcome(){
+    public void printWelcome() {
         System.out.println("""
                 =========================================================================
                 *                        Hello! Welcome to this quiz!                   *
@@ -37,7 +35,7 @@ public class QuizManager {
                 =========================================================================""");
     }
 
-    public void setQuestionTopics(String topic){
+    public void setQuestionTopics(String topic) {
         this.questionManager.setQuestionsList(topic);
     }
 
@@ -48,15 +46,16 @@ public class QuizManager {
             Boolean[] userAnswers = listOfUserAnswers(answer);
             Boolean[] actualAnswers = this.questionManager.answerValues(i);
 
-            if (Arrays.equals(userAnswers,actualAnswers)){
+            if (Arrays.equals(userAnswers, actualAnswers)) {
                 this.playerScore++;
             }
         }
     }
 
-    public void quizResult(){
-        System.out.println("Quiz is finished!");
-        System.out.println("You've got " + this.playerScore + " out of " + this.questionManager.getQuestions().size());
+    public void quizResult() {
+        System.out.println("*".repeat(30));
+        System.out.println("\t\tQuiz is finished!\n");
+        System.out.println("\tYou've got " + this.playerScore + " out of " + this.questionManager.getQuestions().size() + " points!\n");
         switch (this.playerScore) {
             case 4 -> System.out.println("Excellent, you are a genius or something");
             case 3 -> System.out.println("Very good, you are obviously smart");
@@ -64,20 +63,21 @@ public class QuizManager {
             case 1 -> System.out.println("I still see great potential for improvement");
             case 0 -> System.out.println("C'mon , did you even try?");
         }
+        System.out.println("*".repeat(30));
     }
 
     public Boolean[] listOfUserAnswers(String answer) {
         String[] splitted = answer.split("");
         Boolean[] userAnswers = new Boolean[4];
-        Arrays.fill(userAnswers,false);
+        Arrays.fill(userAnswers, false);
 
         for (int i = 0; i < splitted.length; i++) {
-            userAnswers[Integer.parseInt(splitted[i]) -1 ] = true;
+            userAnswers[Integer.parseInt(splitted[i]) - 1] = true;
         }
         return userAnswers;
     }
 
-    public boolean shouldPlayAgain(String answer){
+    public boolean shouldPlayAgain(String answer) {
         if (answer.equals("y")) {
             this.playerScore = 0;
             return true;
