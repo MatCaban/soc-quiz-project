@@ -14,13 +14,9 @@ public class Main {
         while (true) {
             quizManager.printIntro();
 
-            String topic = Answer.scanTopicAnswer(scanner);
-
-            switch (topic) {
-                case "a" -> quizManager.setQuestionTopics("geography");
-                case "b" -> quizManager.setQuestionTopics("java");
-                case "c" -> quizManager.setQuestionTopics("science");
-            }
+            String topic = Answer.scanAnswer(scanner, quizManager.getTopicsList().size());
+            int indexOfTopic = Integer.parseInt(topic) -1;
+            quizManager.setQuestionTopics(quizManager.getTopicsList().get(indexOfTopic));
 
             quizManager.playQuiz();
             quizManager.quizResult();

@@ -1,14 +1,11 @@
 package quiz;
 
 import answer.Answer;
-import com.google.gson.Gson;
 import player.PlayerManager;
 import question.QuestionManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -17,10 +14,12 @@ import java.util.*;
  * including player interactions, question setup, scorekeeping, and result display.
  */
 public class QuizManager {
+    private final int NUM_OF_QUESTIONS = 4;
     private int playerScore;
     private final QuestionManager questionManager;
     private final Scanner scanner;
     private final PlayerManager playerManager;
+    private final List<String> topicsList;
 
 
     public QuizManager() {
@@ -28,6 +27,7 @@ public class QuizManager {
         this.questionManager = new QuestionManager();
         this.playerManager = new PlayerManager();
         this.scanner = new Scanner(System.in);
+        topicsList = new ArrayList<>();
 
     }
 
@@ -46,21 +46,18 @@ public class QuizManager {
         this.playerManager.setPlayer(playerName);
     }
 
+    public List<String> getTopicsList() {
+        return  this.topicsList;
+    }
 
     public void printIntro() {
-        System.out.println("""
-                ========================================================================
-                *                   You can choose from three areas of interest.       *
-                *               Each area has 4 questions, and the questions may       *
-                *                   (but don't have to!) have multiple answers.        *
-                *                          So be careful and focus!                    *
-                *                                                                      *
-                * Now it's time to choose the area you want questions from, will it be *
-                *                                a) geography                          *
-                *                                b) java                               *
-                *                                c) science                            *
-                *                     Write your answer and we can begin!              *
-                ========================================================================""");
+        setTopicsList();
+        System.out.println("=".repeat(56));
+        System.out.println("\t\tYou can choose from " + this.topicsList.size() + " areas of interest.");
+        System.out.println("\tEach area has " + NUM_OF_QUESTIONS + " questions, and the questions may " +
+                "\n\t\t(but don't have to!) have multiple answers. " +
+                "\n\t\t\tSo be careful and focus!");
+        System.out.println("=".repeat(56));
 
         printTopics();
     }
@@ -72,7 +69,7 @@ public class QuizManager {
     public void playQuiz() {
         for (int i = 0; i < this.questionManager.getQuestions().size(); i++) {
             this.questionManager.printQuestion(i);
-            String answer = Answer.scanQuizAnswer(scanner, questionManager.getQuestions().size());
+            String answer = Answer.scanAnswer(scanner, questionManager.getQuestions().size());
             Boolean[] userAnswers = listOfUserAnswers(answer);
             Boolean[] actualAnswers = this.questionManager.answerValues(i);
 
@@ -114,6 +111,7 @@ public class QuizManager {
     public boolean shouldPlayAgain(String answer) {
         if (answer.equals("y")) {
             this.playerScore = 0;
+            this.topicsList.clear();
             return true;
         }
         return false;
@@ -152,19 +150,24 @@ public class QuizManager {
     }
 
     public void printTopics(){
+        for (int i = 0; i < this.topicsList.size(); i++) {
+            System.out.println("\t\t" + (i + 1) + ". " + this.topicsList.get(i));
+        }
+    }
+
+    public void setTopicsList(){
         String separator = File.separator;
         String[] dirNames = {"src", "json", "topics"};
         String path = String.join(separator, dirNames);
 
         File folder = new File(path);
         File[] files = folder.listFiles();
-
         if (files != null) {
             for (File file : files) {
                 String fileName = file.getName();
                 int dotIndex = fileName.indexOf(".");
                 fileName = fileName.substring(0, dotIndex);
-                System.out.println("\t\t* " + fileName);
+                this.topicsList.add(fileName);
             }
         } else {
             System.out.println("Something went wrong");

@@ -15,7 +15,7 @@ public class Answer {
 
     private Answer(){};
 
-    public static String scanQuizAnswer(Scanner scanner, int size) {
+    public static String scanAnswer(Scanner scanner, int size) {
         String input;
         while (true) {
             System.out.print("-> ");
