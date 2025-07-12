@@ -15,13 +15,13 @@ public class Answer {
 
     private Answer(){};
 
-    public static String scanQuizAnswer(Scanner scanner) {
+    public static String scanQuizAnswer(Scanner scanner, int size) {
         String input;
         while (true) {
             System.out.print("-> ");
             input = scanner.nextLine().toLowerCase();
 
-            if (isInputValid(input) && isInputInRange(input)) {
+            if (isInputValid(input) && isInputInRange(input, size)) {
                 break;
             }
         }
@@ -89,18 +89,20 @@ public class Answer {
 
     }
 
-    private static boolean isInputInRange(String input) {
+    private static boolean isInputInRange(String input, int size) {
         String[]splitted = input.split("");
         Set<String> withoutDuplicates = new HashSet<>(List.of(splitted));
 
         if (withoutDuplicates.size() != splitted.length) {
             System.out.println("Each answer can be entered only once");
+            System.out.println("Try again: ");
             return false;
         }
 
         for (String s: splitted) {
-            if (Integer.parseInt(s) < 1 || Integer.parseInt(s) > 4) {
-                System.out.println("Only numbers between 1 and 4");
+            if (Integer.parseInt(s) < 1 || Integer.parseInt(s) > size) {
+                System.out.println("Only numbers between 1 and " + size);
+                System.out.println("Try again: ");
                 return false;
             }
         }

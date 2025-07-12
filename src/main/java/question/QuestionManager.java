@@ -3,6 +3,7 @@ package question;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
@@ -25,9 +26,12 @@ public class QuestionManager {
     }
 
     public void setQuestionsList(String topic) {
+        String separator = File.separator;
+        String[] dirNames = {"src", "json", "topics"};
+        String path = String.join(separator,dirNames);
         Gson gson = new Gson();
 
-        try (Reader reader = new FileReader("src/json/topics/" + topic + ".json")) {
+        try (Reader reader = new FileReader(path + separator + topic + ".json")) {
             Type questionListType = new TypeToken<List<Question>>() {
             }.getType();
             this.questions = gson.fromJson(reader, questionListType);

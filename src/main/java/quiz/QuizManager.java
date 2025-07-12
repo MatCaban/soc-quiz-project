@@ -1,11 +1,14 @@
 package quiz;
 
 import answer.Answer;
+import com.google.gson.Gson;
 import player.PlayerManager;
 import question.QuestionManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -44,7 +47,6 @@ public class QuizManager {
     }
 
 
-
     public void printIntro() {
         System.out.println("""
                 ========================================================================
@@ -59,6 +61,8 @@ public class QuizManager {
                 *                                c) science                            *
                 *                     Write your answer and we can begin!              *
                 ========================================================================""");
+
+        printTopics();
     }
 
     public void setQuestionTopics(String topic) {
@@ -68,7 +72,7 @@ public class QuizManager {
     public void playQuiz() {
         for (int i = 0; i < this.questionManager.getQuestions().size(); i++) {
             this.questionManager.printQuestion(i);
-            String answer = Answer.scanQuizAnswer(scanner);
+            String answer = Answer.scanQuizAnswer(scanner, questionManager.getQuestions().size());
             Boolean[] userAnswers = listOfUserAnswers(answer);
             Boolean[] actualAnswers = this.questionManager.answerValues(i);
 
@@ -115,16 +119,24 @@ public class QuizManager {
         return false;
     }
 
+    // get the file separator specific for an operation system
+    // construct the file path to directory players
+    // if this directory does not exist creates it
+    // if exists print its content without a file suffix
     private void printSavedPlayers() throws IOException {
-        File folder = new File("src/json/players");
+        String separator = File.separator;
+        String[] dirNames = {"src", "json", "players"};
+        String path = String.join(separator, dirNames);
+        File folder = new File(path);
 
         if (!folder.isDirectory()) {
-            throw new IOException("Folder not found!");
+            folder.mkdir();
         }
 
         File[] files = folder.listFiles();
 
-        if (files.length == 0) {
+        if (files == null || files.length == 0) {
+
             System.out.println("\t\tThere are no saved players yet!");
             System.out.println("\t\tCongratulation you are first to play!");
         } else {
@@ -139,6 +151,24 @@ public class QuizManager {
         }
     }
 
+    public void printTopics(){
+        String separator = File.separator;
+        String[] dirNames = {"src", "json", "topics"};
+        String path = String.join(separator, dirNames);
 
+        File folder = new File(path);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                String fileName = file.getName();
+                int dotIndex = fileName.indexOf(".");
+                fileName = fileName.substring(0, dotIndex);
+                System.out.println("\t\t* " + fileName);
+            }
+        } else {
+            System.out.println("Something went wrong");
+        }
+    }
 
 }

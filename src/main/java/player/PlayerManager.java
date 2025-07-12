@@ -20,9 +20,12 @@ public class PlayerManager {
 
 
     public void setPlayer(String playerName) {
+        String separator = File.separator;
+        String[] dirNames = {"src", "json", "players"};
+        String path = String.join(separator, dirNames);
         Gson gson = new Gson();
 
-        try (Reader reader = new FileReader("src/json/players/" + playerName + ".json")) {
+        try (Reader reader = new FileReader(path + separator + playerName + ".json")) {
             this.player = gson.fromJson(reader, Player.class);
 
         } catch (IOException e) {
