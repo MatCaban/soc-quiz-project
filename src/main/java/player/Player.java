@@ -7,6 +7,7 @@ public class Player {
     private int allPossiblePoints;
 
     public Player() {
+        this.name = "";
         this.pointsEarned = 0;
         this.allPossiblePoints = 0;
     }
