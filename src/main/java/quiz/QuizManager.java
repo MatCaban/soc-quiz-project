@@ -27,7 +27,7 @@ public class QuizManager {
         this.questionManager = new QuestionManager();
         this.playerManager = new PlayerManager();
         this.scanner = new Scanner(System.in);
-        topicsList = new ArrayList<>();
+        this.topicsList = new ArrayList<>();
 
     }
 
