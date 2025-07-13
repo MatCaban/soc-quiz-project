@@ -2,6 +2,7 @@ package question;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import utility.FileNames;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,15 +21,17 @@ import java.util.Map;
 public class QuestionManager {
     private List<Question> questions;
 
-
     public QuestionManager() {
         this.questions = new ArrayList<>();
     }
 
+    public List<Question> getQuestions() {
+        return this.questions;
+    }
+
     public void setQuestionsList(String topic) {
         String separator = File.separator;
-        String[] dirNames = {"src", "json", "topics"};
-        String path = String.join(separator,dirNames);
+        String path = String.join(separator,new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.TOPICS.getFileName()});
         Gson gson = new Gson();
 
         try (Reader reader = new FileReader(path + separator + topic + ".json")) {
@@ -37,18 +40,18 @@ public class QuestionManager {
             this.questions = gson.fromJson(reader, questionListType);
             Collections.shuffle(this.questions);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Cannon read from file! " + e.getMessage());
         }
     }
-
-    public List<Question> getQuestions() {
-        return this.questions;
-    }
-
 
     public void printQuestion(int questionNumber) {
         printPrettyQuestion(this.questions.get(questionNumber));
         printPrettyAnswers(this.questions.get(questionNumber).getAnswers());
+    }
+
+    private void printPrettyQuestion(Question question) {
+        System.out.print(question.getQuestion());
+        System.out.print(question.isMultipleChoice() ? " (Multiple choice question!)\n" : " (Only one correct answer!)\n");
     }
 
     private void printPrettyAnswers(Map<String, Boolean> answers) {
@@ -59,12 +62,7 @@ public class QuestionManager {
         }
     }
 
-    private void printPrettyQuestion(Question question) {
-        System.out.print(question.getQuestion());
-        System.out.print(question.isMultipleChoice() ? " (Multiple choice question!)\n" : " (Only one correct answer!)\n");
-    }
-
-    public Boolean[] answerValues(int questionNumber) {
-        return this.questions.get(questionNumber).getRightAnswers().toArray(new Boolean[0]);
+    public Boolean[] answersRightness(int questionNumber) {
+        return this.questions.get(questionNumber).getAnswersRightness().toArray(new Boolean[0]);
     }
 }

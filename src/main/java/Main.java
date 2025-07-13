@@ -1,5 +1,6 @@
-import answer.Answer;
+import utility.Answer;
 import quiz.QuizManager;
+
 
 import java.util.Scanner;
 
@@ -19,11 +20,12 @@ public class Main {
             quizManager.setQuestionTopics(quizManager.getTopicsList().get(indexOfTopic));
 
             quizManager.playQuiz();
-            quizManager.quizResult();
+            quizManager.printQuizResult();
 
             System.out.println("Would you like to restart game? y/n");
             String answer = Answer.scanRestartGameAnswer(scanner);
             if (!quizManager.shouldPlayAgain(answer)) {
+                System.out.println("Bye, see you next time!");
                 break;
             }
         }

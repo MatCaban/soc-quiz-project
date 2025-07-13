@@ -14,18 +14,18 @@ public class Question {
     private String question;
     private final Map<String, Boolean> answers;
     private boolean multipleChoice;
-    private final List<Boolean> rightAnswers;
+    private final List<Boolean> answersRightness;
 
     public Question(){
         this.answers = new HashMap<>();
-        this.rightAnswers = new ArrayList<>();
+        this.answersRightness = new ArrayList<>();
         this.question = "";
         this.multipleChoice = false;
     }
 
-    public List<Boolean> getRightAnswers(){
-        this.rightAnswers.addAll(this.answers.values());
-        return this.rightAnswers;
+    public List<Boolean> getAnswersRightness(){
+        this.answersRightness.addAll(this.answers.values());
+        return this.answersRightness;
     }
 
 

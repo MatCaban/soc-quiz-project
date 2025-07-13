@@ -1,11 +1,11 @@
 package quiz;
 
-import answer.Answer;
+import utility.Answer;
 import player.PlayerManager;
 import question.QuestionManager;
+import utility.FileNames;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 
@@ -31,23 +31,20 @@ public class QuizManager {
 
     }
 
+
+    public List<String> getTopicsList() {
+        return  this.topicsList;
+    }
+
     public void welcomePlayer() {
         System.out.println("\t\t* Hello! Welcome to this quiz! *\n");
-        try {
-            printSavedPlayers();
-        } catch (IOException e) {
-            System.out.println("Sorry, something went wrong");
-        }
+        this.playerManager.printSavedPlayers();
     }
 
     public void setPlayer() {
         System.out.print("Enter name: ");
         String playerName = Answer.scanPlayerName(this.scanner);
         this.playerManager.setPlayer(playerName);
-    }
-
-    public List<String> getTopicsList() {
-        return  this.topicsList;
     }
 
     public void printIntro() {
@@ -71,7 +68,7 @@ public class QuizManager {
             this.questionManager.printQuestion(i);
             String answer = Answer.scanAnswer(scanner, questionManager.getQuestions().size());
             Boolean[] userAnswers = listOfUserAnswers(answer);
-            Boolean[] actualAnswers = this.questionManager.answerValues(i);
+            Boolean[] actualAnswers = this.questionManager.answersRightness(i);
 
             if (Arrays.equals(userAnswers, actualAnswers)) {
                 this.playerScore++;
@@ -79,7 +76,7 @@ public class QuizManager {
         }
     }
 
-    public void quizResult() {
+    public void printQuizResult() {
         System.out.println("*".repeat(30));
         System.out.println("\t\tQuiz is finished!\n");
         System.out.println("\tYou've got " + this.playerScore + " out of " + this.questionManager.getQuestions().size() + " points!\n");
@@ -92,7 +89,7 @@ public class QuizManager {
         }
         System.out.println("*".repeat(30));
 
-        this.playerManager.setPlayerPoints(this.playerScore);
+        this.playerManager.setPlayerPoints(this.playerScore, this.questionManager.getQuestions().size());
         this.playerManager.printPoints();
         this.playerManager.savePlayer();
     }
@@ -117,37 +114,6 @@ public class QuizManager {
         return false;
     }
 
-    // get the file separator specific for an operation system
-    // construct the file path to directory players
-    // if this directory does not exist creates it
-    // if exists print its content without a file suffix
-    private void printSavedPlayers() throws IOException {
-        String separator = File.separator;
-        String[] dirNames = {"src", "json", "players"};
-        String path = String.join(separator, dirNames);
-        File folder = new File(path);
-
-        if (!folder.isDirectory()) {
-            folder.mkdir();
-        }
-
-        File[] files = folder.listFiles();
-
-        if (files == null || files.length == 0) {
-
-            System.out.println("\t\tThere are no saved players yet!");
-            System.out.println("\t\tCongratulation you are first to play!");
-        } else {
-            System.out.println("* There are already some saved players! *");
-            for (File file : files) {
-                String fileName = file.getName();
-                int dotIndex = fileName.indexOf(".");
-                fileName = fileName.substring(0, dotIndex);
-                System.out.println("\t\t* " + fileName);
-            }
-            System.out.println("Enter existing name or choose your own");
-        }
-    }
 
     public void printTopics(){
         for (int i = 0; i < this.topicsList.size(); i++) {
@@ -157,8 +123,7 @@ public class QuizManager {
 
     public void setTopicsList(){
         String separator = File.separator;
-        String[] dirNames = {"src", "json", "topics"};
-        String path = String.join(separator, dirNames);
+        String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.TOPICS.getFileName()});
 
         File folder = new File(path);
         File[] files = folder.listFiles();

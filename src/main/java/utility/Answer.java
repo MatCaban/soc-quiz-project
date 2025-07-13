@@ -1,4 +1,4 @@
-package answer;
+package utility;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.Set;
  */
 public class Answer {
 
-
-    private Answer(){};
+    private Answer() {
+    }
 
     public static String scanAnswer(Scanner scanner, int size) {
         String input;
@@ -21,27 +21,10 @@ public class Answer {
             System.out.print("-> ");
             input = scanner.nextLine().toLowerCase();
 
-            if (isInputValid(input) && isInputInRange(input, size)) {
+            if (isInputValid(input) && isInputInRange(input, size) && hasInputUniqueValues(input)) {
                 break;
             }
         }
-
-        return input;
-    }
-
-    public static String scanTopicAnswer(Scanner scanner) {
-        String input;
-        while (true) {
-            System.out.print("-> ");
-            input = scanner.nextLine().toLowerCase();
-
-            if (input.equals("a") || input.equals("b") || input.equals("c")) {
-                break;
-            }
-
-            System.out.println("Invalid input, choose only from - a, b, c");
-        }
-
         return input;
     }
 
@@ -58,17 +41,20 @@ public class Answer {
         return input;
     }
 
-    public static String scanPlayerName(Scanner scanner){
+    public static String scanPlayerName(Scanner scanner) {
         String input;
         while (true) {
             input = scanner.nextLine();
-            if (!input.isBlank()) {
+            if (input.isBlank()) {
+                System.out.println("You should choose some epic name");
+                System.out.print("Enter name: ");
+            } else if (!Character.isAlphabetic(input.charAt(0))) {
+                System.out.println("Your name should start with letter");
+                System.out.print("Enter name: ");
+            } else {
                 break;
             }
-            System.out.println("You should choose some epic name");
-            System.out.print("Enter name: ");
         }
-
         return input;
     }
 
@@ -86,25 +72,28 @@ public class Answer {
             System.out.print("Try again: ");
             return false;
         }
-
     }
 
     private static boolean isInputInRange(String input, int size) {
-        String[]splitted = input.split("");
+        String[] splitted = input.split("");
+        for (String s : splitted) {
+            if (Integer.parseInt(s) < 1 || Integer.parseInt(s) > size) {
+                System.out.println("Only numbers between 1 and " + size);
+                System.out.print("Try again: ");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean hasInputUniqueValues(String input) {
+        String[] splitted = input.split("");
         Set<String> withoutDuplicates = new HashSet<>(List.of(splitted));
 
         if (withoutDuplicates.size() != splitted.length) {
             System.out.println("Each answer can be entered only once");
-            System.out.println("Try again: ");
+            System.out.print("Try again: ");
             return false;
-        }
-
-        for (String s: splitted) {
-            if (Integer.parseInt(s) < 1 || Integer.parseInt(s) > size) {
-                System.out.println("Only numbers between 1 and " + size);
-                System.out.println("Try again: ");
-                return false;
-            }
         }
         return true;
     }
