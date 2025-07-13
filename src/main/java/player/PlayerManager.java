@@ -21,10 +21,17 @@ public class PlayerManager {
     }
 
 
-    // get the file separator specific for an operation system
-    // construct the file path to directory players
-    // if this directory does not exist creates it
-    // if exists print its content without a file suffix
+
+
+    /*
+     * Prints a list of all saved player names from the designated directory.
+     *
+     * This method checks a predefined directory for any existing player JSON files
+     * and prints their names to the console. If no files are found, it provides a
+     * message indicating that no players have been saved yet. If files are present,
+     * it lists the saved player names and prompts the user to either select an
+     * existing player or enter a new name.
+     */
     public void printSavedPlayers() {
         String separator = File.separator;
         String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
@@ -51,11 +58,13 @@ public class PlayerManager {
         }
     }
 
-    // trying to read a file with the player name,
-    // if it is successful it will create
-    // a new player object with data from a file
-    // if this file does not exist,
-    // it will create a new player object with default fields values
+
+    /*
+     * Sets the player for the game session by loading player information from a JSON file.
+     * If the specified player file does not exist or an I/O error occurs, a new player is created with the given name.
+     *
+     * @param playerName the name of the player to load or create
+     */
     public void setPlayer(String playerName) {
         String separator = File.separator;
         String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
@@ -65,6 +74,31 @@ public class PlayerManager {
             this.player = gson.fromJson(reader, Player.class);
         } catch (IOException e) {
             this.player.setName(playerName);
+        }
+    }
+
+    /*
+     * Saves the current player object to a JSON file.
+     *
+     * This method serializes a Player object into a JSON format and writes it
+     * to a file. The file is stored in a directory structure defined by the
+     * FileNames enum (src/json/players). The name of the file corresponds to
+     * the name of the player, with a ".json" file extension.
+     *
+     * If the destination directory or file does not exist, it will create them.
+     * If an I/O error occurs during writing, the stack trace of the exception
+     * is printed to the console.
+     */
+    public void savePlayer() {
+        String separator = File.separator;
+        String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (Writer writer = new FileWriter(path + separator + this.player.getName() + ".json")) {
+            writer.write(gson.toJson(this.player));
+        } catch (IOException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -78,16 +112,5 @@ public class PlayerManager {
         System.out.println("All points you could earned: " + this.player.getAllPossiblePoints());
     }
 
-    public void savePlayer() {
-        String separator = File.separator;
-        String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        try (Writer writer = new FileWriter(path + separator + this.player.getName() + ".json")) {
-            writer.write(gson.toJson(this.player));
-        } catch (IOException e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
-        }
-    }
 }
