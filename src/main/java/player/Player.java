@@ -12,13 +12,11 @@ public class Player {
     private String name;
     private int pointsEarned;
     private int allPossiblePoints;
-    private String separator;
 
     public Player() {
         this.name = "";
         this.pointsEarned = 0;
         this.allPossiblePoints = 0;
-        this.separator = File.separator;
     }
 
     public Player(String name) {
@@ -61,9 +59,13 @@ public class Player {
      * existing player or enter a new name.
      */
     public void printSavedPlayers() {
-        String path = String.join(this.separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
+        String separator = File.separator;
+        String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
         File folder = new File(path);
 
+        if (!folder.isDirectory()) {
+            folder.mkdir();
+        }
         File[] files = folder.listFiles();
 
         if (files == null || files.length == 0) {
@@ -88,7 +90,8 @@ public class Player {
      * @param playerName the name of the player to load or create
      */
     public Player setPlayer(String playerName) {
-        String path = String.join(this.separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
+        String separator = File.separator;
+        String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
         Gson gson = new Gson();
 
         try (Reader reader = new FileReader(path + separator + playerName + ".json")) {
@@ -111,7 +114,8 @@ public class Player {
      * is printed to the console.
      */
     public void savePlayer() {
-        String path = String.join(this.separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
+        String separator = File.separator;
+        String path = String.join(separator, new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.PLAYERS.getFileName()});
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
