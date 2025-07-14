@@ -1,4 +1,4 @@
-import utility.Answer;
+import utility.ValidateInput;
 import quiz.QuizManager;
 
 
@@ -15,15 +15,15 @@ public class Main {
         while (true) {
             quizManager.printIntro();
 
-            String topic = Answer.scanAnswer(scanner, quizManager.getTopicsList().size());
+            String topic = ValidateInput.scanAnswer(scanner, quizManager.getTopicsList().size());
             int indexOfTopic = Integer.parseInt(topic) -1;
-            quizManager.setQuestionTopics(quizManager.getTopicsList().get(indexOfTopic));
+            quizManager.setQuestionTopics(indexOfTopic);
 
             quizManager.playQuiz();
             quizManager.printQuizResult();
 
             System.out.println("Would you like to restart game? y/n");
-            String answer = Answer.scanRestartGameAnswer(scanner);
+            String answer = ValidateInput.scanRestartGameAnswer(scanner);
             if (!quizManager.shouldPlayAgain(answer)) {
                 System.out.println("Bye, see you next time!");
                 break;

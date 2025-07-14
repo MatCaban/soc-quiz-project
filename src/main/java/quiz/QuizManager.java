@@ -1,8 +1,8 @@
 package quiz;
 
-import utility.Answer;
-import player.PlayerManager;
-import question.QuestionManager;
+import player.Player;
+import question.Question;
+import utility.ValidateInput;
 import utility.FileNames;
 
 import java.io.File;
@@ -16,18 +16,20 @@ import java.util.*;
 public class QuizManager {
     private final int NUM_OF_QUESTIONS = 4;
     private int playerScore;
-    private final QuestionManager questionManager;
     private final Scanner scanner;
-    private final PlayerManager playerManager;
     private final List<String> topicsList;
+    private Player player;
+    private Question question;
+    private List<Question> questions;
 
 
     public QuizManager() {
         this.playerScore = 0;
-        this.questionManager = new QuestionManager();
-        this.playerManager = new PlayerManager();
         this.scanner = new Scanner(System.in);
         this.topicsList = new ArrayList<>();
+        this.player = new Player();
+        this.question = new Question();
+        this.questions = new ArrayList<>();
 
     }
 
@@ -38,13 +40,13 @@ public class QuizManager {
 
     public void welcomePlayer() {
         System.out.println("\t\t* Hello! Welcome to this quiz! *\n");
-        this.playerManager.printSavedPlayers();
+        this.player.printSavedPlayers();
     }
 
     public void setPlayer() {
         System.out.print("Enter name: ");
-        String playerName = Answer.scanPlayerName(this.scanner);
-        this.playerManager.setPlayer(playerName);
+        String playerName = ValidateInput.scanPlayerName(this.scanner);
+        this.player = this.player.setPlayer(playerName);
     }
 
     public void printIntro() {
@@ -59,16 +61,16 @@ public class QuizManager {
         printTopics();
     }
 
-    public void setQuestionTopics(String topic) {
-        this.questionManager.setQuestionsList(topic);
+    public void setQuestionTopics(int index) {
+        this.questions = this.question.setQuestionsList(this.topicsList.get(index));
     }
 
     public void playQuiz() {
-        for (int i = 0; i < this.questionManager.getQuestions().size(); i++) {
-            this.questionManager.printQuestion(i);
-            String answer = Answer.scanAnswer(scanner, questionManager.getQuestions().size());
+        for (int i = 0; i < this.questions.size(); i++) {
+            this.printQuestion(i);
+            String answer = ValidateInput.scanAnswer(scanner, this.questions.size());
             Boolean[] userAnswers = listOfUserAnswers(answer);
-            Boolean[] actualAnswers = this.questionManager.answersRightness(i);
+            Boolean[] actualAnswers = this.answersRightness(i);
 
             if (Arrays.equals(userAnswers, actualAnswers)) {
                 this.playerScore++;
@@ -79,7 +81,7 @@ public class QuizManager {
     public void printQuizResult() {
         System.out.println("*".repeat(30));
         System.out.println("\t\tQuiz is finished!\n");
-        System.out.println("\tYou've got " + this.playerScore + " out of " + this.questionManager.getQuestions().size() + " points!\n");
+        System.out.println("\tYou've got " + this.playerScore + " out of " + this.questions.size() + " points!\n");
         switch (this.playerScore) {
             case 4 -> System.out.println("Excellent, you are a genius or something");
             case 3 -> System.out.println("Very good, you are obviously smart");
@@ -89,9 +91,9 @@ public class QuizManager {
         }
         System.out.println("*".repeat(30));
 
-        this.playerManager.setPlayerPoints(this.playerScore, this.questionManager.getQuestions().size());
-        this.playerManager.printPoints();
-        this.playerManager.savePlayer();
+        this.player.setPlayerPoints(this.playerScore, this.questions.size());
+        this.player.printPoints();
+        this.player.savePlayer();
     }
 
     public Boolean[] listOfUserAnswers(String answer) {
@@ -137,6 +139,28 @@ public class QuizManager {
         } else {
             System.out.println("Something went wrong");
         }
+    }
+
+    public void printQuestion(int questionNumber) {
+        printPrettyQuestion(this.questions.get(questionNumber));
+        printPrettyAnswers(this.questions.get(questionNumber).getAnswers());
+    }
+
+    private void printPrettyQuestion(Question question) {
+        System.out.print(question.getQuestion());
+        System.out.print(question.isMultipleChoice() ? " (Multiple choice question!)\n" : " (Only one correct answer!)\n");
+    }
+
+    private void printPrettyAnswers(Map<String, Boolean> answers) {
+        int index = 1;
+        for (String answer : answers.keySet()) {
+            System.out.println("\t" + index + ". " + answer);
+            index++;
+        }
+    }
+
+    public Boolean[] answersRightness(int questionNumber) {
+        return this.questions.get(questionNumber).getAnswersRightness().toArray(new Boolean[0]);
     }
 
 }

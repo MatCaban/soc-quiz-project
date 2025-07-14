@@ -1,9 +1,14 @@
 package question;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import utility.FileNames;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.*;
 
 /**
  * Represents a question that contains its text, a set of possible answers,
@@ -23,6 +28,13 @@ public class Question {
         this.multipleChoice = false;
     }
 
+    /*
+     * Retrieves a list indicating the correctness of each answer for the question.
+     * The list contains boolean values, where each value represents whether
+     * a corresponding answer is correct (true) or incorrect (false).
+     * The method ensures that all values from the internal map of answers
+     * are added to the list of correct/incorrect flags.
+     */
     public List<Boolean> getAnswersRightness(){
         this.answersRightness.addAll(this.answers.values());
         return this.answersRightness;
@@ -39,5 +51,21 @@ public class Question {
 
     public boolean isMultipleChoice(){
         return this.multipleChoice;
+    }
+
+    public List<Question> setQuestionsList(String topic) {
+        List<Question> questions = new ArrayList<>();
+        String separator = File.separator;
+        String path = String.join(separator,new String[]{FileNames.SRC.getFileName(), FileNames.JSON.getFileName(), FileNames.TOPICS.getFileName()});
+        Gson gson = new Gson();
+
+        try (Reader reader = new FileReader(path + separator + topic + ".json")) {
+            Type questionListType = new TypeToken<List<Question>>() {
+            }.getType();
+            questions = gson.fromJson(reader, questionListType);
+        } catch (Exception e) {
+            System.out.println("Cannon read from file! " + e.getMessage());
+        }
+        return questions;
     }
 }

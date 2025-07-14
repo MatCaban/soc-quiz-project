@@ -10,9 +10,9 @@ import java.util.Set;
  * The methods handle different types of inputs such as quiz answers, topic selection, restart game decision,
  * and player name. The class ensures user inputs meet specific requirements and formats.
  */
-public class Answer {
+public class ValidateInput {
 
-    private Answer() {
+    private ValidateInput() {
     }
 
     public static String scanAnswer(Scanner scanner, int size) {
