@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.List;
 
 public class Question {
@@ -13,9 +12,9 @@ public class Question {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(this.question + "\n");
+        result.append(this.question).append("\n");
         for (int i = 0; i < this.alternatives.size(); i++){
-            result.append((i + 1) + this.alternatives.get(i) + "\n");
+            result.append((i + 1)).append(this.alternatives.get(i)).append("\n");
         }
         return result.toString();
     }
