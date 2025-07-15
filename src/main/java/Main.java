@@ -1,7 +1,4 @@
-
 import utility.ValidateInput;
-
-
 
 import java.util.Scanner;
 
@@ -9,10 +6,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         QuizManager quizManager = new QuizManager();
+
         quizManager.welcomePlayer();
         quizManager.setPlayer();
-
-
 
         while (true) {
             quizManager.printIntro();
@@ -26,49 +22,9 @@ public class Main {
             String userChoice = ValidateInput.scanRestartGameAnswer(scanner);
             if (!quizManager.shouldPlayAgain(userChoice)) {
                 System.out.println("Bye, see you next time!");
+                scanner.close();
                 break;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        Scanner scanner = new Scanner(System.in);
-//        QuizManager quizManager = new QuizManager();
-//
-//        quizManager.welcomePlayer();
-//        quizManager.setPlayer();
-//
-//        while (true) {
-//            quizManager.printIntro();
-//
-//            String topic = ValidateInput.scanAnswer(scanner, quizManager.getTopicsList().size());
-//            int indexOfTopic = Integer.parseInt(topic) -1;
-//            quizManager.setQuestionTopics(indexOfTopic);
-//            Answer answer = new Answer(quizManager.getTopicsList().get(indexOfTopic));
-//            System.out.println(answer.toString());
-//
-//            quizManager.playQuiz();
-//            quizManager.printQuizResult();
-//
-//            System.out.println("Would you like to restart game? y/n");
-//            String userChoice = ValidateInput.scanRestartGameAnswer(scanner);
-//            if (!quizManager.shouldPlayAgain(userChoice)) {
-//                System.out.println("Bye, see you next time!");
-//                break;
-//            }
-//        }
     }
 }

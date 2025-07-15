@@ -10,8 +10,6 @@ public class Question {
         this.alternatives = alternatives;
     }
 
-
-
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
