@@ -15,7 +15,7 @@ public class ValidateInput {
     private ValidateInput() {
     }
 
-    public static String scanAnswer(Scanner scanner, int size) {
+    public static int scanAnswer(Scanner scanner, int size) {
         String input;
         while (true) {
             System.out.print("-> ");
@@ -25,7 +25,7 @@ public class ValidateInput {
                 break;
             }
         }
-        return input;
+        return Integer.parseInt(input);
     }
 
     public static String scanRestartGameAnswer(Scanner scanner) {
