@@ -84,7 +84,8 @@ public class QuizManager {
 
     public void playQuiz(){
         for (int i = 0; i < this.questions.getQuestions().size(); i++){
-            System.out.println(this.questions.getQuestions().get(i));
+            System.out.print(this.questions.getQuestions().get(i));
+            System.out.println(" (" + this.answers.getAnswers().get(i).getAnswerType() + ") ");
 
             int userInput = ValidateInput.scanAnswer(scanner, this.questions.getQuestions().size());
 

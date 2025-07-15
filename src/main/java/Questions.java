@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Questions {
-    private List<Question> questions;
+    private final List<Question> questions;
 
     public Questions() {
         this.questions = new ArrayList<>();

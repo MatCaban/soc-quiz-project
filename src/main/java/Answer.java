@@ -1,3 +1,5 @@
+import utility.QuestionType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,5 +17,12 @@ public class Answer {
 
     public boolean isAnswerCorrect(int userChoice) {
         return this.correctAnswer == userChoice;
+    }
+
+    public String getAnswerType(){
+        if (this.correctAnswer > 4) {
+            return QuestionType.MULTIPLE_ANSWER.getComment();
+        }
+        return QuestionType.SINGLE_ANSWER.getComment();
     }
 }
