@@ -1,5 +1,5 @@
 # QUIZ Project
-## This project, developed as part of the StreetOfCode course, implements a simple quiz application. The quiz dynamically loads questions from JSON files and stores player scores (current session and total) in a separate JSON file.
+## This project, developed as part of the StreetOfCode course, implements a simple quiz application. The quiz dynamically loads questions from txt files and stores player scores (current session and total) in a separate JSON file.
 
 ### How it Works
 
@@ -11,7 +11,7 @@
 
 ### Topic Selection:
   * The player is then asked to select the categories from which they wish to answer questions.
-  * Questions are stored in JSON files, with each file representing a different topic (e.g., "science", "geography", ...).
+  * Questions are stored in txt files, with each file representing a different topic (e.g., "science", "geography", ...).
 
 ### Quiz Gameplay:
   * The player is presented with four questions.
@@ -31,5 +31,4 @@
   * At the end of the game, the player is prompted whether they want to repeat the quiz with a new set of questions or exit the game.
 
 #### Extending the Quiz
-  * Adding New Topics: To add more question categories, simply create and save new JSON files with the desired questions.
-  * Increasing Answer Options: The number of answer options (currently 4) can be increased. However, this would require modifying the quiz's end-of-game summary messages, which currently evaluate based on the four-option structure.
+  * Adding New Topics: To add more question categories, simply create and save new txt files with the desired questions.
